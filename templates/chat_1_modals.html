@@ -1,0 +1,89 @@
+<!-- Modal: security code -->
+<div class="modal fade" id="security-code" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-danger text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Change security code of this group</h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="{% url 'chat:change-room-security-code' type='group' room=user_group_chat.room %}">{% csrf_token %}
+                <div class="modal-body">
+                    Fill this captcha to countinue.<br>
+                    <div class="form-group mt-5">
+                        {{ captcha_form.captcha }}
+                        <!-- <input name="password" class="form-control form-control-lg" placeholder="Enter password" id="id-user" type="password"> -->
+                        <!-- <label class="custom-control-label" for="id-user">Report and delete this chat's messages</label> -->
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                        aria-label="Close">
+                        Cencel
+                    </button>
+                    <button type="submit" class="btn btn-danger text-light">
+                        CHANGE
+                        <i class="fe-block ml-auto"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal: security code -->
+
+<!-- Modal: report group -->
+<div class="modal fade" id="report-group" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-danger text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Report {{ user_group_chat.name }}</h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="GET" action="{% url 'chat:report' type='group' room=user_group_chat.room %}">
+                <div class="modal-body">
+                    Report this group to Chatify?<br>
+                    <div class="custom-control custom-checkbox mt-5">
+                        <input checked name="exit" value="True" class="custom-control-input" id="id-user" type="checkbox">
+                        <label class="custom-control-label" for="id-user">Exit from group</label>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                        aria-label="Close">
+                        Cencel
+                    </button>
+                    <button type="submit" class="btn btn-danger text-light">
+                        REPORT
+                        <i class="fe-trash-2 ml-auto"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal: report group -->

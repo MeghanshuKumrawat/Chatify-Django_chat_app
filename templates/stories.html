@@ -1,0 +1,237 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="layout">
+
+    {% include 'sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="main main-visible" data-mobile-height="">
+
+        <div id="chat-2" class="chat dropzone-form-js" data-dz-url="some.html">
+
+            <!-- Chat: body -->
+            <div class="chat-body">
+
+                <!-- Chat: Header -->
+                <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
+                    <div class="container-xxl">
+
+                        <div class="row align-items-center">
+
+                            <!-- Close chat(mobile) -->
+                            <div class="col-3 d-xl-none">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a class="text-muted px-0" href="#" data-chat="open">
+                                            <i class="icon-md fe-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Chat photo -->
+                            <div class="col-6 col-xl-6">
+                                <div class="media text-center text-xl-left">
+                                    <div class="avatar avatar-sm avatar-online d-none d-lg-inline-block mr-5">
+                                        <img src="{{ story_user.user.avatar.url }}" class="avatar-img" alt="">
+                                    </div>
+
+                                    <div class="media-body align-self-center text-truncate">
+                                        <h6 class="text-truncate mb-n1">{{ story_user.user.username }}</h6>
+                                        <span
+                                            class="badge badge-dot badge-success d-inline-block d-xl-none mr-1"></span>
+                                        <small class="text-muted">{{ story_user.seen.all.count }} Pepole seen</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chat toolbar -->
+                            {% if user == story_user.user %}
+                            <div class="col-3 col-xl-6 text-right">
+                                <ul class="nav justify-content-end">
+
+                                    <li class="nav-item list-inline-item d-none d-xl-block mr-5">
+                                        <a class="nav-link px-0 btn-ico" href="#"
+                                        data-toggle="modal" data-target="#create-stoeies">
+                                            <i class="icon-md fe-plus"></i>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item list-inline-item d-none d-xl-block mr-5">
+                                        <a class="nav-link px-0 btn-ico" href="#"
+                                        data-toggle="modal" data-target="#delete-stories">
+                                            <i class="icon-md fe-trash-2"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item list-inline-item d-none d-xl-block mr-0">
+                                        <div class="dropdown">
+                                            <a class="nav-link px-0 btn-ico" href="#" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <!-- <span class="badge badge-circle badge-primary"> -->
+                                                    <i class="fe-eye"></i>
+                                                <!-- </span> -->
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                {% for user in story_user.seen.all %}
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    data-toggle="collapse" data-target="#chat-2-search" href="#">
+                                                    {{ user.username }} <span class="ml-auto pl-5 fe-eye"></span>
+                                                </a>
+                                                {% empty %}
+                                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                                    No views yet <span class="ml-auto pl-5 fe-eye"></span>
+                                                </a>
+                                                {% endfor %}
+
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <!-- Mobile nav -->
+                                    <li class="nav-item list-inline-item d-block d-xl-none">
+                                        
+                                        <div class="dropdown">
+                                            <a class="nav-link text-muted px-0" href="#" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="icon-md fe-more-vertical"></i>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item text-primary d-flex align-items-center"
+                                                    data-toggle="modal" data-target="#create-stoeies" href="#">
+                                                     Post stories <span class="ml-auto pl-5 fe-plus"></span>
+                                                </a>
+                                                <a class="dropdown-item text-danger d-flex align-items-center"
+                                                    data-toggle="modal" data-target="#delete-stories" href="#">
+                                                    Delete stories <span class="ml-auto pl-5 fe-trash-2"></span>
+                                                </a>
+                                                {% for user in story_user.seen.all %}
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    data-toggle="collapse" data-target="#chat-2-search" href="#">
+                                                    {{ user.username }} <span class="ml-auto pl-5 fe-eye"></span>
+                                                </a>
+                                                {% empty %}
+                                                <a class="dropdown-item d-flex align-items-center" href="#">
+                                                    No views yet <span class="ml-auto pl-5 fe-eye"></span>
+                                                </a>
+                                                {% endfor %}
+                                                
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Mobile nav -->
+                                </ul>
+                            </div>
+                            {% endif %}
+
+                        </div><!-- .row -->
+
+                    </div>
+                </div>
+                <!-- Chat: Header -->
+
+                <!-- Carousel wrapper -->
+                <div id="carouselBasicExample" class="carousel slide carousel-fade" data-mdb-ride="carousel">
+                    <!-- Indicators -->
+                    <div class="carousel-indicators">
+                        {% for story in stories %}
+                        {% if forloop.counter == 1 %}
+                        <button type="button" data-mdb-target="#carouselBasicExample"
+                            data-mdb-slide-to="{{ forloop.counter }}" class="active" aria-current="true"
+                            aria-label="Slide {{ forloop.counter }}"></button>
+                        {% else %}
+                        <button type="button" data-mdb-target="#carouselBasicExample"
+                            data-mdb-slide-to="{{ forloop.counter }}" class="" aria-current="true"
+                            aria-label="Slide {{ forloop.counter }}"></button>
+                        {% endif %}
+                        {% endfor %}
+                        <!-- <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="1"
+                            aria-label="Slide 2"></button>
+                        <button type="button" data-mdb-target="#carouselBasicExample" data-mdb-slide-to="2"
+                            aria-label="Slide 3"></button> -->
+                    </div>
+
+                    <!-- Inner -->
+                    <div class="carousel-inner">
+                        <!-- Single item -->
+                        {% for story in stories %}
+                        {% if forloop.counter == 1 %}
+                        <div class="carousel-item active">
+                            {% else %}
+                            <div class="carousel-item">
+                                {% endif %}
+                                <img src="{{ story.image.url }}" style="height: 540px;" class="d-block w-100"
+                                    alt="..." />
+                                <div class="carousel-caption d-none d-md-block">
+                                    <!-- <h5>First slide label</h5> -->
+                                    <p style="font-size: large;">{{ story.caption }}</p>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            <!-- Single item -->
+
+                        </div>
+                        <!-- Inner -->
+
+                        <!-- Controls -->
+                        <button class="carousel-control-prev" type="button" data-mdb-target="#carouselBasicExample"
+                            data-mdb-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden"></span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-mdb-target="#carouselBasicExample"
+                            data-mdb-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden"></span>
+                        </button>
+                    </div>
+                    <!-- Carousel wrapper -->
+                </div>
+                <!-- Chat: body -->
+            </div>
+
+        </div>
+        <!-- Main Content -->
+
+    </div>
+    <!-- Layout -->
+
+    <!-- DropzoneJS: Template -->
+    <div id="dropzone-template-js">
+        <div class="col-lg-4 my-3">
+            <div class="card bg-light">
+                <div class="card-body p-3">
+                    <div class="media align-items-center">
+
+                        <div class="dropzone-file-preview">
+                            <div class="avatar avatar rounded bg-secondary text-basic-inverse d-block mr-5">
+                                <i class="fe-paperclip"></i>
+                            </div>
+                        </div>
+
+                        <div class="dropzone-image-preview">
+                            <div class="avatar avatar mr-5">
+                                <img src="#" class="avatar-img rounded" data-dz-thumbnail="" alt="">
+                            </div>
+                        </div>
+
+                        <div class="media-body overflow-hidden">
+                            <h6 class="text-truncate small mb-0" data-dz-name></h6>
+                            <p class="extra-small" data-dz-size></p>
+                        </div>
+
+                        <div class="ml-5">
+                            <a href="#" class="btn btn-sm btn-link text-decoration-none text-muted" data-dz-remove>
+                                <i class="fe-x"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- DropzoneJS: Template -->
+
+    {% include 'modals.html' %}
+
+    {% endblock content %}

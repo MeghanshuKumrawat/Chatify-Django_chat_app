@@ -1,0 +1,256 @@
+<!-- Modal: clear chat -->
+<div class="modal fade" id="clear-chat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-danger text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Clear chat</h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                Messages in all chats will disappear forever.<br>
+                Are you sure you want to delete all messages?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                    aria-label="Close">
+                    Cencel
+                </button>
+                <a href="{% url 'chat:clear-all-chat' %}" class="btn btn-danger text-light">
+                    DELETE
+                    <i class="fe-trash-2 ml-auto"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: clear chat -->
+
+<!-- Modal: delete chat -->
+<div class="modal fade" id="delete-chat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-danger text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Delete chat</h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                ALL chat and their Messages will disappear forever.<br>
+                Are you sure you want to delete all chat and their messages?
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                    aria-label="Close">
+                    Cencel
+                </button>
+                <a href="{% url 'chat:delete-all-chat' %}" class="btn btn-danger text-light">
+                    DELETE
+                    <i class="fe-trash-2 ml-auto"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: delete chat -->
+
+<!-- Modal: block user -->
+<div class="modal fade" id="export-chat" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-success text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Export chat</h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                Blocked contacts will no longer be able to send you a messages.
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                    aria-label="Close">
+                    Cencel
+                </button>
+                <a href="{% url 'chat:export-all-chat' %}" class="btn btn-success text-light">
+                    EXPORT
+                    <i class="fe-trash-2 ml-auto"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: block user -->
+
+<!-- Modal: report user -->
+<div class="modal fade" id="report-user" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-danger text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Report </h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Report this contact to Chatify?<br>
+                <div class="custom-control custom-checkbox mt-5">
+                    <input checked name="member" value="" class="custom-control-input" id="id-user" type="checkbox">
+                    <label class="custom-control-label" for="id-user">Block contact and delete this chat's messages</label>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                    aria-label="Close">
+                    Cencel
+                </button>
+                <a href="" class="btn btn-danger text-light">
+                    REPORT
+                    <i class="fe-trash-2 ml-auto"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal: report user -->
+
+<!-- Modal: lock convertation -->
+<div class="modal fade" id="lock-convertation" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-danger text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Lock convertation with {{ user_private_chat.friend.username }}</h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="">{% csrf_token %}
+                <div class="modal-body">
+                    Set password for this contact.<br>
+                    <div class="form-group mt-5">
+                        <input name="password" class="form-control form-control-lg" placeholder="Enter password" id="id-user" type="password">
+                        <!-- <label class="custom-control-label" for="id-user">Report and delete this chat's messages</label> -->
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                        aria-label="Close">
+                        Cencel
+                    </button>
+                    <button type="submit" class="btn btn-danger text-light">
+                        BLOCK
+                        <i class="fe-block ml-auto"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal: lock convertation -->
+
+<!-- Modal: delete account -->
+<div class="modal fade" id="delete-account" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-danger text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Delete your account</h5>
+                        <p class="small"></p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="">{% csrf_token %}
+                <div class="modal-body">
+                    To delete your account, enter your password and confirm your request.<br>
+                    <div class="form-group mt-5">
+                        {{ delete_account_form.password }}
+                        <!-- <input name="password" class="form-control form-control-lg" placeholder="Enter password" id="user-password" type="password"> -->
+                        <!-- <label class="custom-control-label" for="id-user">Enter your password</label> -->
+                    </div>
+                    <div class="form-group mt-5">
+                        {{ delete_account_form.captcha }}
+                        <!-- <input name="password" class="form-control form-control-lg" placeholder="Enter password" id="id-user" type="password"> -->
+                        <!-- <label class="custom-control-label" for="id_captcha_1">Confirm your request</label> -->
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary d-flex align-items-center" data-dismiss="modal"
+                        aria-label="Close">
+                        Cencel
+                    </button>
+                    <button name="captcha-form" type="submit" class="btn btn-danger text-light">
+                        DELETE
+                        <i class="fe-block ml-auto"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal: delete account -->

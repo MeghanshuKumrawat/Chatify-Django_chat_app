@@ -1,0 +1,212 @@
+<!-- Modal: Invite friends -->
+<div class="modal fade" id="invite-friends" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-primary text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Invite friends</h5>
+                        <p class="small">Invite colleagues, clients and friends.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <form action="#">
+                    <div class="form-group">
+                        <label for="invite-email" class="small">Email</label>
+                        <input type="text" class="form-control form-control-lg" id="invite-email">
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <label for="invite-message" class="small">Invitation message</label>
+                        <textarea class="form-control form-control-lg" id="invite-message"
+                            data-autosize="true"></textarea>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-lg btn-block btn-primary d-flex align-items-center">
+                    Invite friend
+                    <i class="fe-user-plus ml-auto"></i>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Modal: Invite friends -->
+
+<!-- Modal: Edit groups -->
+<div class="modal fade" id="edit-group" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-primary text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Edit group</h5>
+                        <p class="small">Invite colleagues, clients and friends.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" enctype="multipart/form-data" action="{% url 'chat:edit-group' %}">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="small">Photo</label>
+                        <div class="position-relative text-center bg-secondary rounded p-6">
+                            <div class="avatar bg-primary text-white mb-5">
+                                <i class="icon-md fe-image"></i>
+                            </div>
+                            <p class="small text-muted mb-0">You can upload jpg' %}, gif or png
+                                files. <br> Max file size 3mb.</p>
+                            {{ group_edit_form.avatar }}
+                            <label class="stretched-label mb-0" for="upload-chat-photo"></label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="small" for="new-chat-title">Name</label>
+                        {{ group_edit_form.name }}
+                    </div>
+
+                    <div class="form-group">
+                        <label class="small" for="new-chat-topic">Topic (optional)</label>
+                        {{ group_edit_form.topic }}
+                    </div>
+
+                    <div class="form-group mb-0">
+                        <label class="small" for="new-chat-description">Description</label>
+                        {{ group_edit_form.description }}
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button name="group-edit-form" value="{{ user_group_chat.room }}" type="submit"
+                        class="btn btn-lg btn-block btn-primary d-flex align-items-center">
+                        Save changes
+                        <i class="fe-user-plus ml-auto"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal: Edit groups -->
+
+<!-- Modal: create stories -->
+<div class="modal fade" id="create-stoeies" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-primary text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Post Stories</h5>
+                        <p class="small">Invite colleagues, clients and friends.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" action="{% url 'chat:create-stories' %}">{% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="small">Photo</label>
+                        <div class="position-relative text-center bg-secondary rounded p-6">
+                            <div class="avatar bg-primary text-white mb-5">
+                                <i class="icon-md fe-image"></i>
+                            </div>
+                            <p class="small text-muted mb-0">You can upload jpg, gif or png
+                                files. <br> Max file size 3mb.</p>
+                            {{ stories_create_form.image }}
+                            <label class="stretched-label mb-0" for="upload-story-photo"></label>
+                        </div>
+                    </div>
+                    <div class="form-group mb-0">
+                        <label for="invite-message" class="small">Invitation message</label>
+                        <!-- <textarea class="form-control form-control-lg" id="invite-message"
+                                data-autosize="true"></textarea> -->
+                        {{ stories_create_form.caption }}
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" name="create-stories"
+                        class="btn btn-lg btn-block btn-primary d-flex align-items-center">
+                        Post
+                        <i class="fe-user-plus ml-auto"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal: create stories -->
+
+<!-- Modal: delete stories -->
+<div class="modal fade" id="delete-stories" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <div class="media flex-fill">
+                    <div class="icon-shape rounded-lg bg-primary text-white mr-5">
+                        <i class="fe-users"></i>
+                    </div>
+                    <div class="media-body align-self-center">
+                        <h5 class="modal-title">Delete Story</h5>
+                        <p class="small">Invite colleagues, clients and friends.</p>
+                    </div>
+                </div>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="{% url 'chat:delete-stories' %}">{% csrf_token %}
+                <div class="modal-body">
+                    Select stories to delete.<br>
+                    {% for story in stories %}
+                    <div class="form-group m-4">
+                        <input name="images" value="{{ story.pk }}" type="checkbox" id="img-{{ forloop.counter }}">
+                        <label for="img-{{ forloop.counter }}">
+                            <img src="{{ story.image.url }}" style="height: 100px; width:100px;"></label>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-lg btn-block btn-primary d-flex align-items-center">
+                        DELETE
+                        <i class="fe-user-plus ml-auto"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Modal: create stories -->

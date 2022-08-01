@@ -1,0 +1,1061 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block content %}
+<div class="layout">
+
+    {% include 'sidebar.html' %}
+
+    <!-- Main Content -->
+    <div class="main main-visible" data-mobile-height="">
+
+        <!-- Chat -->
+        <div id="chat-2" class="chat dropzone-form-js" data-dz-url="some.html">
+
+            <!-- Chat: body -->
+            <div class="chat-body">
+
+                <!-- Chat: Header -->
+                <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
+                    <div class="container-xxl">
+
+                        <div class="row align-items-center">
+
+                            <!-- Close chat(mobile) -->
+                            <div class="col-3 d-xl-none">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a class="text-muted px-0" href="#" data-chat="open">
+                                            <i class="icon-md fe-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Chat photo -->
+                            <div class="col-6 col-xl-6">
+                                <div class="media text-center text-xl-left">
+                                    <div class="avatar avatar-sm avatar-online d-none d-lg-inline-block mr-5">
+                                        <img src="{{ user_private_chat.friend.avatar.url }}" class="avatar-img" alt="">
+                                    </div>
+
+                                    <div class="media-body align-self-center text-truncate">
+                                        <h6 class="text-truncate mb-n1">{{ user_private_chat.friend.username }}</h6>
+                                        {% if user_private_chat.close_friend %}
+                                        <span
+                                            class="badge badge-dot badge-success d-inline-block d-xl-none mr-1"></span>
+                                        {% endif %}
+                                        <small class="text-muted">Online</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Chat toolbar -->
+                            <div class="col-3 col-xl-6 text-right">
+                                <ul class="nav justify-content-end">
+                                    <li class="nav-item list-inline-item d-none d-xl-block mr-3">
+                                        <a class="nav-link text-muted px-3" data-toggle="collapse"
+                                            data-target="#chat-2-search" href="#" title="Search this chat">
+                                            <i class="icon-md fe-search"></i>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item list-inline-item d-none d-xl-block mr-0">
+                                        <a class="nav-link text-muted px-3" href="#"
+                                            data-chat-sidebar-toggle="#chat-2-info" title="Details">
+                                            <i class="icon-md fe-more-vertical"></i>
+                                        </a>
+                                    </li>
+
+                                    <!-- Mobile nav -->
+                                    <li class="nav-item list-inline-item d-block d-xl-none">
+                                        <div class="dropdown">
+                                            <a class="nav-link text-muted px-0" href="#" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="icon-md fe-more-vertical"></i>
+                                            </a>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    data-toggle="collapse" data-target="#chat-2-search" href="#">
+                                                    Search <span class="ml-auto pl-5 fe-search"></span>
+                                                </a>
+
+                                                <a class="dropdown-item d-flex align-items-center" href="#"
+                                                    data-chat-sidebar-toggle="#chat-2-info">
+                                                    Chat Info <span class="ml-auto pl-5 fe-more-horizontal"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <!-- Mobile nav -->
+                                </ul>
+                            </div>
+
+                        </div><!-- .row -->
+
+                    </div>
+                </div>
+                <!-- Chat: Header -->
+
+                <!-- Chat: Search -->
+                <div class="collapse border-bottom px-lg-8" id="chat-2-search">
+                    <div class="container-xxl py-4 py-lg-6">
+                        <form method="GET">
+                            <div class="input-group">
+                                <input type="text" name="chat" class="form-control form-control-lg"
+                                    placeholder="Search this chat" aria-label="Search this chat">
+
+                                <div class="input-group-append">
+                                    <button class="btn btn-lg btn-ico btn-secondary btn-minimal" type="submit">
+                                        <i class="fe-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!-- Chat: Search -->
+
+                <!-- Chat: Content-->
+                <div class="chat-content px-lg-8">
+                    <div id="all-messages" class="container-xxl py-6 py-lg-10">
+                        <!-- Divider -->
+                        <div class="message-divider my-9 mx-lg-5">
+                            <div class="row align-items-center">
+
+                                <div class="col">
+                                    <hr>
+                                </div>
+
+                                <div class="col-auto">
+                                    <small class="text-muted">Today</small>
+                                </div>
+
+                                <div class="col">
+                                    <hr>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Divider -->
+                        <!-- Message -->
+                        {% for message in messages %}
+                        {% if message.user == user %}
+                        <!-- Message -->
+                        <div class="message message-right">
+                            <!-- Avatar -->
+                            <div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block">
+                                <img class="avatar-img" src="{{ user.avatar.url }}" alt="">
+                            </div>
+
+                            <!-- Message: body -->
+                            <div class="message-body">
+
+                                <!-- Message: row -->
+                                <div class="message-row">
+                                    <div class="d-flex align-items-center justify-content-end">
+
+                                        <!-- Message: dropdown -->
+                                        {% if user not in message.delete_by.all %}
+                                        <div class="dropdown">
+                                            <a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="fe-more-vertical"></i>
+                                            </a>
+
+                                            <div class="dropdown-menu">
+                                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
+                                                    Edit <span class="ml-auto fe-edit-3"></span>
+                                                </a> -->
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    onclick="chatForward('{{ message.pk }}');" href="#">
+                                                    Share <span class="ml-auto fe-share-2"></span>
+                                                </a>
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    href="{% url 'chat:delete-for-me' chat_type='single' pk=message.pk %}">
+                                                    Delete for me<span class="ml-auto fe-trash-2"></span>
+                                                </a>
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    href="{% url 'chat:delete-for-everyone' chat_type='single' pk=message.pk %}">
+                                                    Delete for everyone<span class="ml-auto fe-trash-2"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        <!-- Message: dropdown -->
+
+                                        <!-- Message: content -->
+                                        <div class="message-content bg-primary text-white">
+                                            {% if user in message.delete_by.all %}
+                                            <div>You deleted this message</div>
+                                            {% else %}
+                                            <div>{{ message.message }}</div>
+                                            {% endif %}
+
+                                            <div class="mt-1">
+                                                {% if message.forwarded %}
+                                                <small class="opacity-65">Forwarded | </small>
+                                                {% endif %}
+                                                <small class="opacity-65">{{ message.timestamp|naturaltime }}</small>
+                                            </div>
+                                        </div>
+                                        <!-- Message: content -->
+
+                                    </div>
+                                </div>
+                                <!-- Message: row -->
+
+                            </div>
+                            <!-- Message: body -->
+                        </div>
+                        <!-- Message -->
+                        {% else %}
+                        <!-- Message -->
+                        <div class="message">
+                            <!-- Avatar -->
+                            <a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info">
+                                <img class="avatar-img" src="{{ user_private_chat.friend.avatar.url }}" alt="">
+                            </a>
+
+                            <!-- Message: body -->
+                            <div class="message-body">
+
+                                <!-- Message: row -->
+                                <div class="message-row">
+                                    <div class="d-flex align-items-center">
+
+                                        <!-- Message: content -->
+                                        <div class="message-content bg-light">
+                                            {% if user in message.delete_by.all %}
+                                            <div>You deleted this message</div>
+                                            {% else %}
+                                            <div>{{ message.message }}</div>
+                                            {% endif %}
+
+                                            <div class="mt-1">
+                                                {% if message.forwarded %}
+                                                <small class="opacity-65">Forwarded | </small>
+                                                {% endif %}
+                                                <small class="opacity-65">{{ message.timestamp|naturaltime }}</small>
+                                            </div>
+                                        </div>
+                                        <!-- Message: content -->
+
+                                        <!-- Message: dropdown -->
+                                        {% if user not in message.delete_by.all %}
+                                        <div class="dropdown">
+                                            <a class="text-muted opacity-60 ml-3" href="#" data-toggle="dropdown"
+                                                aria-haspopup="true" aria-expanded="false">
+                                                <i class="fe-more-vertical"></i>
+                                            </a>
+
+                                            <div class="dropdown-menu">
+                                                <!-- <a class="dropdown-item d-flex align-items-center" href="#">
+                                                    Edit <span class="ml-auto fe-edit-3"></span>
+                                                </a> -->
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    onclick="chatForward('{{ message.pk }}');" href="#">
+                                                    Share <span class="ml-auto fe-share-2"></span>
+                                                </a>
+                                                <a class="dropdown-item d-flex align-items-center"
+                                                    href="{% url 'chat:delete-for-me' chat_type='single' pk=message.pk %}">
+                                                    Delete for me<span class="ml-auto fe-trash-2"></span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                        <!-- Message: dropdown -->
+
+                                    </div>
+                                </div>
+                                <!-- Message: row -->
+
+                            </div>
+                            <!-- Message: body -->
+                        </div>
+                        <!-- Message -->
+                        {% endif %}
+                        {% endfor %}
+                        <!-- Message: Typing -->
+
+                    </div>
+
+                    <!-- Scroll to end -->
+                    <div class="end-of-chat"></div>
+                </div>
+                <!-- Chat: Content -->
+
+                <!-- Chat: DropzoneJS container -->
+                <div class="chat-files hide-scrollbar px-lg-8">
+                    <div class="container-xxl">
+                        <div class="dropzone-previews-js form-row py-4"></div>
+                    </div>
+                </div>
+                <!-- Chat: DropzoneJS container -->
+
+                <!-- Chat: Footer -->
+                <div class="chat-footer border-top py-4 py-lg-6 px-lg-8">
+                    <div class="container-xxl">
+
+                        <!-- <form id="chat-id-2-form"
+                            data-emoji-form=""> -->
+                        <div class="form-row align-items-center">
+                            <div class="col">
+                                <div class="input-group">
+
+                                    <!-- Textarea -->
+                                    <input id="chat-message-input"
+                                        class="form-control bg-transparent border-0 chat-message-input"
+                                        placeholder="Type your message..." rows="1" data-emoji-input=""
+                                        data-autosize="true" />
+
+                                    <!-- Emoji button -->
+                                    <div class="input-group-append">
+                                        <button class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0"
+                                            type="button" data-emoji-btn="">
+                                            <img src="{% static 'assets/images/smile.svg' %}" data-inject-svg="" alt="">
+                                        </button>
+                                    </div>
+
+                                    <!-- Upload button -->
+                                    <div class="input-group-append">
+                                        <button id="chat-upload-btn-2"
+                                            class="btn btn-ico btn-secondary btn-minimal bg-transparent border-0 dropzone-button-js"
+                                            type="button">
+                                            <img src="{% static 'assets/images/paperclip.svg' %}" data-inject-svg=""
+                                                alt="">
+                                        </button>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Submit button -->
+                            <div class="col-auto">
+                                <button id="chat-message-submit" class="btn btn-ico btn-primary rounded-circle">
+                                    <span class="fe-send"></span>
+                                </button>
+                                {{ room|json_script:'room-name' }}
+                            </div>
+
+                        </div>
+
+                        <!-- </form> -->
+
+                    </div>
+                </div>
+                <!-- Chat: Footer -->
+            </div>
+            <!-- Chat: body -->
+
+            <!-- Chat Details -->
+            <div id="chat-2-info" class="chat-sidebar">
+                <div class="d-flex h-100 flex-column">
+
+                    <!-- Header -->
+                    <div class="border-bottom py-4 py-lg-6">
+                        <div class="container-fluid">
+
+                            <ul class="nav justify-content-between align-items-center">
+                                <!-- Close sidebar -->
+                                <li class="nav-item list-inline-item">
+                                    <a class="nav-link text-muted px-0" href="#" data-chat-sidebar-close="">
+                                        <i class="icon-md fe-chevron-left"></i>
+                                    </a>
+                                </li>
+
+                                <!-- Title(mobile) -->
+                                <li class="text-center d-block d-lg-none">
+                                    <h6 class="mb-n2">{{ user_private_chat.friend.username }}</h6>
+                                    <small class="text-muted">Chat Details</small>
+                                </li>
+
+                                <!-- Dropdown -->
+                                <li class="nav-item list-inline-item">
+                                    <div class="dropdown">
+                                        <a class="nav-link text-muted px-0" href="#" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="false">
+                                            <i class="icon-md fe-sliders"></i>
+                                        </a>
+                                        <div class="dropdown-menu">
+                                            {% if user_private_chat.close_friend %}
+                                            <a class="dropdown-item d-flex align-items-center mr-3"
+                                                href="{% url 'chat:remove-close-friend' user_private_chat.room %}">
+                                                Remove close friends
+                                                <span class="ml-auto fe-heart"></span>
+                                            </a>
+                                            {% else %}
+                                            <a class="dropdown-item d-flex align-items-center mr-3"
+                                                href="{% url 'chat:add-close-friend' user_private_chat.room %}">
+                                                Add to close friends
+                                                <span class="ml-auto fe-heart"></span>
+                                            </a>
+                                            {% endif %}
+                                            <a class="dropdown-item d-flex align-items-center"
+                                                href="{% url 'chat:export-chat' user_private_chat.room %}">
+                                                Export chat
+                                                <span class="ml-auto fe-file-export"></span>
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex align-items-center"
+                                                data-toggle="modal" data-target="#clear-chat">
+                                                Clear chat
+                                                <span class="ml-auto fe-minus-circle"></span>
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex align-items-center"
+                                                data-toggle="modal" data-target="#delete-chat">
+                                                Delete chat
+                                                <span class="ml-auto fe-trash-2"></span>
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex align-items-center"
+                                                data-toggle="modal" data-target="#report-user">
+                                                Report contact
+                                                <span class="ml-auto fe-block"></span>
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex align-items-center"
+                                                data-toggle="modal" data-target="#block-user">
+                                                Block {{ user_private_chat.friend.username }}
+                                                <span class="ml-auto fe-block"></span>
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex align-items-center"
+                                                data-toggle="modal" data-target="#security-code">
+                                                Security code
+                                                <span class="ml-auto fe-lock"></span>
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex align-items-center"
+                                                data-toggle="modal" data-target="#lock-convertation">
+                                                Lock conversation
+                                                <span class="ml-auto fe-lock"></span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+
+                        </div>
+                    </div>
+                    <!-- Header -->
+
+                    <!-- Body -->
+                    <div class="hide-scrollbar flex-fill">
+
+                        <div class="border-bottom text-center py-9 px-10">
+                            <!-- Photo -->
+                            <div class="avatar avatar-xl mx-5 mb-5">
+                                <img class="avatar-img" src="{{ user_private_chat.friend.avatar.url }}" alt="">
+                            </div>
+                            <h5>{{ user_private_chat.friend.username }}</h5>
+                            <p class="text-muted">{{ user_private_chat.friend.bio }}</p>
+                        </div>
+
+                        <!-- Navs -->
+                        <div class="nav nav-tabs nav-justified bg-light rounded-0" role="tablist">
+                            <a class="nav-item nav-link active" href="#chat-2-user-details" data-toggle="tab"
+                                aria-selected="true" role="tab">Details</a>
+                            <a class="nav-item nav-link" href="#chat-2-user-files" data-toggle="tab"
+                                role="tab">Files</a>
+                        </div>
+                        <!-- Navs -->
+
+                        <div class="tab-content" role="tablist">
+                            <!-- Details -->
+                            <div id="chat-2-user-details" class="tab-pane fade show active" role="tabpanel">
+                                <ul class="list-group list-group-flush mb-8">
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Country</p>
+                                                <p>{{ user_private_chat.friend.country.name }}
+                                                    <img src="{{ user_private_chat.friend.country.flag }}" alt="">
+                                                </p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-globe"></i>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Phone</p>
+                                                <p>{{ user_private_chat.friend.phone }}</p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-mic"></i>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Email</p>
+                                                <p>{{ user_private_chat.friend.email }}</p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-mail"></i>
+                                        </div>
+                                    </li>
+
+                                    <li class="list-group-item py-6">
+                                        <div class="media align-items-center">
+                                            <div class="media-body">
+                                                <p class="small text-muted mb-0">Time</p>
+                                                <p>{{ user_private_chat.friend.last_login }}</p>
+                                            </div>
+                                            <i class="text-muted icon-sm fe-clock"></i>
+                                        </div>
+                                    </li>
+                                </ul>
+
+                                <ul class="list-group list-group-flush">
+                                    {% if user_private_chat.friend.socialprofile.twitter %}
+                                    <li class="list-group-item py-6">
+                                        <a href="{{ user_private_chat.friend.socialprofile.twitter }}"
+                                            class="media text-muted">
+                                            <div class="media-body align-self-center">
+                                                Twitter
+                                            </div>
+                                            <i class="icon-sm fe-twitter"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if user_private_chat.friend.socialprofile.facebook %}
+                                    <li class="list-group-item py-6">
+                                        <a href="{{ user_private_chat.friend.socialprofile.facebook }}"
+                                            class="media text-muted">
+                                            <div class="media-body align-self-center">
+                                                Facebook
+                                            </div>
+                                            <i class="icon-sm fe-facebook"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if user_private_chat.friend.socialprofile.instagram %}
+                                    <li class="list-group-item py-6">
+                                        <a href="{{ user_private_chat.friend.socialprofile.instagram }}"
+                                            class="media text-muted">
+                                            <div class="media-body align-self-center">
+                                                Instagram
+                                            </div>
+                                            <i class="icon-sm fe-instagram"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                    {% if user_private_chat.friend.socialprofile.github %}
+                                    <li class="list-group-item py-6">
+                                        <a href="{{ user_private_chat.friend.socialprofile.github }}"
+                                            class="media text-muted">
+                                            <div class="media-body align-self-center">
+                                                Github
+                                            </div>
+                                            <i class="icon-sm fe-github"></i>
+                                        </a>
+                                    </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                            <!-- Details -->
+
+                            <!-- Files -->
+                            <div id="chat-2-user-files" class="tab-pane fade" role="tabpanel">
+                                <ul class="list-group list-group-flush list-group-no-border-first">
+                                    <!-- File -->
+                                    <li class="list-group-item py-6">
+                                        <div class="media">
+
+                                            <div class="icon-shape bg-primary text-white mr-5">
+                                                <i class="fe-paperclip"></i>
+                                            </div>
+
+                                            <div class="media-body align-self-center overflow-hidden">
+                                                <h6 class="text-truncate mb-0">
+                                                    <a href="#" class="text-reset"
+                                                        title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
+                                                </h6>
+
+                                                <ul class="list-inline small mb-0">
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted">79.2 KB</span>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted text-uppercase">txt</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="align-self-center ml-5">
+                                                <div class="dropdown">
+                                                    <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Download <span class="ml-auto fe-download"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Share <span class="ml-auto fe-share-2"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Delete <span class="ml-auto fe-trash-2"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <!-- File -->
+
+                                    <!-- File -->
+                                    <li class="list-group-item py-6">
+                                        <div class="media">
+
+                                            <div class="icon-shape bg-primary text-white mr-5">
+                                                <i class="fe-paperclip"></i>
+                                            </div>
+
+                                            <div class="media-body align-self-center overflow-hidden">
+                                                <h6 class="text-truncate mb-0">
+                                                    <a href="#" class="text-reset"
+                                                        title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
+                                                </h6>
+
+                                                <ul class="list-inline small mb-0">
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted">79.2 KB</span>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted text-uppercase">psd</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="align-self-center ml-5">
+                                                <div class="dropdown">
+                                                    <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Download <span class="ml-auto fe-download"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Share <span class="ml-auto fe-share-2"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Delete <span class="ml-auto fe-trash-2"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <!-- File -->
+
+                                    <!-- File -->
+                                    <li class="list-group-item py-6">
+                                        <div class="media">
+
+                                            <div class="icon-shape bg-primary text-white mr-5">
+                                                <i class="fe-paperclip"></i>
+                                            </div>
+
+                                            <div class="media-body align-self-center overflow-hidden">
+                                                <h6 class="text-truncate mb-0">
+                                                    <a href="#" class="text-reset"
+                                                        title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
+                                                </h6>
+
+                                                <ul class="list-inline small mb-0">
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted">79.2 KB</span>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted text-uppercase">pdf</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="align-self-center ml-5">
+                                                <div class="dropdown">
+                                                    <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Download <span class="ml-auto fe-download"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Share <span class="ml-auto fe-share-2"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Delete <span class="ml-auto fe-trash-2"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <!-- File -->
+
+                                    <!-- File -->
+                                    <li class="list-group-item py-6">
+                                        <div class="media">
+
+                                            <div class="icon-shape bg-primary text-white mr-5">
+                                                <i class="fe-paperclip"></i>
+                                            </div>
+
+                                            <div class="media-body align-self-center overflow-hidden">
+                                                <h6 class="text-truncate mb-0">
+                                                    <a href="#" class="text-reset"
+                                                        title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
+                                                </h6>
+
+                                                <ul class="list-inline small mb-0">
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted">79.2 KB</span>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted text-uppercase">txt</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="align-self-center ml-5">
+                                                <div class="dropdown">
+                                                    <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Download <span class="ml-auto fe-download"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Share <span class="ml-auto fe-share-2"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Delete <span class="ml-auto fe-trash-2"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <!-- File -->
+
+                                    <!-- File -->
+                                    <li class="list-group-item py-6">
+                                        <div class="media">
+
+                                            <div class="icon-shape bg-primary text-white mr-5">
+                                                <i class="fe-paperclip"></i>
+                                            </div>
+
+                                            <div class="media-body align-self-center overflow-hidden">
+                                                <h6 class="text-truncate mb-0">
+                                                    <a href="#" class="text-reset"
+                                                        title="E5419783-047D-4B4C-B30E-F24DD8247731.JPG">E5419783-047D-4B4C-B30E-F24DD8247731.JPG</a>
+                                                </h6>
+
+                                                <ul class="list-inline small mb-0">
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted">79.2 KB</span>
+                                                    </li>
+                                                    <li class="list-inline-item">
+                                                        <span class="text-muted text-uppercase">pdf</span>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="align-self-center ml-5">
+                                                <div class="dropdown">
+                                                    <a href="#" class="btn btn-sm btn-ico btn-link text-muted w-auto"
+                                                        data-toggle="dropdown" aria-haspopup="true"
+                                                        aria-expanded="false">
+                                                        <i class="fe-more-vertical"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Download <span class="ml-auto fe-download"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Share <span class="ml-auto fe-share-2"></span>
+                                                        </a>
+                                                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                                            Delete <span class="ml-auto fe-trash-2"></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </li>
+                                    <!-- File -->
+
+
+                                </ul>
+                            </div>
+                            <!-- Files -->
+                        </div>
+
+                    </div>
+                    <!-- Body -->
+
+                </div>
+            </div>
+            <!-- Chat Details -->
+
+            <!-- Chat Forward -->
+            <div id="chat-2-forward" class="chat-sidebar">
+                <div class="d-flex h-100 flex-column">
+
+                    <!-- Header -->
+                    <div class="border-bottom py-4 py-lg-6">
+                        <div class="container-fluid">
+
+                            <ul class="nav justify-content-between align-items-center">
+                                <!-- Close sidebar -->
+                                <li class="nav-item">
+                                    <a class="nav-link text-muted px-0" href="#" data-chat-sidebar-close="">
+                                        <i class="icon-md fe-chevron-left"></i>
+                                    </a>
+                                </li>
+
+                                <!-- Title(mobile) -->
+                                <li class="text-center d-block d-lg-none">
+                                    <h6 class="mb-n2">{{ user_private_chat.friend.username }}</h6>
+                                    <small class="text-muted">Forward message to</small>
+                                </li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+                    <!-- Header -->
+
+                    <!-- Body -->
+                    <div class="hide-scrollbar flex-fill">
+
+                        <!-- Members -->
+                        <form method="POST" action="{% url 'chat:forward-message' %}">{% csrf_token %}
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item py-4">
+                                    <small class="text-uppercase">Friends</small>
+                                </li>
+                                {% for private_chat in all_private_users %}
+                                <!-- Member -->
+                                <li class="list-group-item py-6">
+                                    <div class="media align-items-center">
+
+
+                                        <div class="avatar avatar-sm avatar-online mr-5">
+                                            <img class="avatar-img" src="{{ private_chat.friend.avatar.url }}"
+                                                alt="Anna Bridges">
+                                        </div>
+
+
+                                        <div class="media-body">
+                                            <h6 class="mb-0">{{ private_chat.friend.username }}</h6>
+                                            <small class="text-muted">Online</small>
+                                        </div>
+
+                                        <div class="align-self-center ml-auto">
+                                            <div class="custom-control custom-checkbox">
+                                                <input name="member" value="{{ private_chat.room }}"
+                                                    class="custom-control-input"
+                                                    id="id-single-chat-{{ forloop.counter }}" type="checkbox">
+                                                <label class="custom-control-label"
+                                                    for="id-single-chat-{{ forloop.counter }}"></label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Label -->
+                                    <label class="stretched-label" for="id-single-chat-{{ forloop.counter }}"></label>
+                                </li>
+                                <!-- Member -->
+                                {% endfor %}
+                                <li class="list-group-item py-4">
+                                    <small class="text-uppercase">Groups</small>
+                                </li>
+                                {% for group_chat in all_groups %}
+                                <!-- Member -->
+                                <li class="list-group-item py-6">
+                                    <div class="media align-items-center">
+
+
+                                        <div class="avatar avatar-sm avatar-online mr-5">
+                                            <img class="avatar-img" src="{{ group_chat.avatar.url }}"
+                                                alt="Anna Bridges">
+                                        </div>
+
+
+                                        <div class="media-body">
+                                            <h6 class="mb-0">{{ group_chat.name }}</h6>
+                                            <small class="text-muted">Online</small>
+                                        </div>
+
+                                        <div class="align-self-center ml-auto">
+                                            <div class="custom-control custom-checkbox">
+                                                <input name="member" value="{{ group_chat.room }}"
+                                                    class="custom-control-input"
+                                                    id="id-group-chat-{{ forloop.counter }}" type="checkbox">
+                                                <label class="custom-control-label"
+                                                    for="id-group-chat-{{ forloop.counter }}"></label>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Label -->
+                                    <label class="stretched-label" for="id-group-chat-{{ forloop.counter }}"></label>
+                                </li>
+                                <!-- Member -->
+                                {% endfor %}
+                            </ul>
+                            <!-- Members -->
+                    </div>
+                    <!-- Body -->
+
+                    <!-- Button -->
+                    <div class="border-top py-7">
+                        <div class="container-fluid">
+                            <button id="forward-chat-submit" name="forward-chat"
+                                class="btn btn-lg btn-block btn-primary d-flex align-items-center" type="submit">
+                                Send
+                                <span class="fe-user-plus ml-auto"></span>
+                            </button>
+                        </div>
+                    </div>
+                    </form>
+                </div>
+            </div>
+            <!-- Chat Forward -->
+
+
+        </div>
+        <!-- Chat -->
+
+    </div>
+    <!-- Main Content -->
+
+</div>
+<!-- Layout -->
+
+<!-- DropzoneJS: Template -->
+<div id="dropzone-template-js">
+    <div class="col-lg-4 my-3">
+        <div class="card bg-light">
+            <div class="card-body p-3">
+                <div class="media align-items-center">
+
+                    <div class="dropzone-file-preview">
+                        <div class="avatar avatar rounded bg-secondary text-basic-inverse d-block mr-5">
+                            <i class="fe-paperclip"></i>
+                        </div>
+                    </div>
+
+                    <div class="dropzone-image-preview">
+                        <div class="avatar avatar mr-5">
+                            <img src="#" class="avatar-img rounded" data-dz-thumbnail="" alt="">
+                        </div>
+                    </div>
+
+                    <div class="media-body overflow-hidden">
+                        <h6 class="text-truncate small mb-0" data-dz-name></h6>
+                        <p class="extra-small" data-dz-size></p>
+                    </div>
+
+                    <div class="ml-5">
+                        <a href="#" class="btn btn-sm btn-link text-decoration-none text-muted" data-dz-remove>
+                            <i class="fe-x"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- DropzoneJS: Template -->
+
+{% include 'modals.html' %}
+{% include 'chat_2_modals.html' %}
+
+<script>
+    function chatForward(id) {
+        var slider = document.querySelector('#chat-2-forward')
+        var form_value = document.getElementById('forward-chat-submit')
+        slider.classList.add('chat-sidebar-visible')
+        form_value.value = id
+    }
+    function chatLock() {
+        var slider = document.querySelector('#chat-2-lock')
+        slider.classList.add('chat-sidebar-visible')
+    }
+    
+</script>
+
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+    const chatSocket = new WebSocket('ws://' +
+        window.location.host +
+        '/ws/chat/' +
+        roomName +
+        '/');
+
+    chatSocket.onmessage = function (e) {
+        const data = JSON.parse(e.data);
+        var objTo = document.getElementById('all-messages')
+        var lastMessage = document.getElementById('last-message')
+        lastMessage.innerText = data.message
+
+        if (data.username == '{{ user.username }}') {
+            var outgoing_msg = document.createElement("div");
+            outgoing_msg.setAttribute("class", "message message-right")
+            outgoing_msg.innerHTML =
+                '<div class="avatar avatar-sm ml-4 ml-lg-5 d-none d-lg-block"><img class="avatar-img" src="{{ user.avatar.url }}" alt=""></div><div class="message-body"><div class="message-row"><div class="d-flex align-items-center justify-content-end"><div class="dropdown"><a class="text-muted opacity-60 mr-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe-more-vertical"></i></a><div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center" href="#">Edit <span class="ml-auto fe-edit-3"></span></a><a class="dropdown-item d-flex align-items-center" href="#">Share <span class="ml-auto fe-share-2"></span></a><a class="dropdown-item d-flex align-items-center" href="#">Delete <span class="ml-auto fe-trash-2"></span></a></div></div><div class="message-content bg-primary text-white"><div>' +
+                data.message +
+                '</div><div class="mt-1"><small class="opacity-65">8 mins ago</small></div></div></div></div></div>'
+            objTo.appendChild(outgoing_msg)
+        } else {
+            var incoming_msg = document.createElement("div");
+            incoming_msg.setAttribute("class", "message")
+            incoming_msg.innerHTML =
+                '<a class="avatar avatar-sm mr-4 mr-lg-5" href="#" data-chat-sidebar-toggle="#chat-2-info"><img class="avatar-img" src="{{ friend.friend.avatar.url }}" alt=""></a><div class="message-body"><div class="message-row"><div class="d-flex align-items-center"><div class="message-content bg-light"><div>' +
+                data.message +
+                '</div><div class="mt-1"><small class="opacity-65">8 mins ago</small></div></div><div class="dropdown"><a class="text-muted opacity-60 ml-3" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fe-more-vertical"></i></a><div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center" href="#">Edit <span class="ml-auto fe-edit-3"></span></a><a class="dropdown-item d-flex align-items-center" href="#">Share <span class="ml-auto fe-share-2"></span></a><a class="dropdown-item d-flex align-items-center" href="#">Delete <span class="ml-auto fe-trash-2"></span></a></div></div></div></div></div>'
+            objTo.appendChild(incoming_msg)
+        }
+    };
+
+    chatSocket.onclose = function (e) {
+        console.error('Chat socket closed unexpectedly');
+    };
+
+    document.querySelector('#chat-message-input').focus()
+    document.querySelector('#chat-message-input').onkeyup = function (e) {
+        if (e.keyCode === 13) {
+            document.querySelector('#chat-message-submit').click();
+        }
+    };
+
+    document.querySelector('#chat-message-submit').onclick = function (e) {
+        const messageInput = document.querySelector('#chat-message-input');
+        const message = messageInput.value;
+        chatSocket.send(JSON.stringify({
+            'message': message,
+            'username': '{{ user.username }}'
+        }));
+        messageInput.value = '';
+    };
+</script>
+{% endblock content %}

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+        <div class="layout">
+
+            <div class="container d-flex flex-column">
+                <div class="row align-items-center justify-content-center no-gutters min-vh-100">
+
+                    <div class="col-12 col-md-5 col-lg-4 py-8 py-md-11">
+
+                        <!-- Heading -->
+                        <h1 class="font-bold text-center">Sign in</h1>
+
+                        <!-- Text -->
+                        <p class="text-center mb-6">Welcome to the official Chat web-client.</p>
+
+                        <!-- Form -->
+                        <form class="mb-6" method="POST">{% csrf_token %}
+                            {% if form.non_field_errors %}
+                            {% for error in form.non_field_errors %}
+                            <p class="text-danger">{{ error }}</p>
+                            {% endfor %}
+                            {% endif %}
+
+                            {% for fields in form %}
+                            <div class="form-group">
+                                {{ fields }}
+                                <div class="text-danger">{{ fields.errors }}</div>
+                            </div>
+                            {% endfor %}
+
+                            <div class="form-group d-flex justify-content-between">
+                                <div class="custom-control custom-checkbox">
+                                    <input type="checkbox" class="custom-control-input" checked="" id="checkbox-remember">
+                                    <label class="custom-control-label" for="checkbox-remember">Remember me</label>
+                                </div>
+                                <a href="password-reset.html">Reset password</a>
+                            </div>
+
+                            <!-- Submit -->
+                            <button class="btn btn-lg btn-block btn-primary" type="submit">Sign in</button>
+                        </form>
+
+                        <!-- Text -->
+                        <p class="text-center">
+                            Don't have an account yet <a href="{% url 'account:sign-up' %}">Sign up</a>.
+                        </p>
+
+                    </div>
+                </div> <!-- / .row -->
+            </div>
+
+        </div><!-- .layout -->
+        {% endblock content %}

@@ -1,0 +1,534 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="layout">
+
+    {% include 'sidebar.html' %}
+    
+    <!-- Main Content -->
+    <div class="main main-visible" data-mobile-height="">
+
+        <!-- Chat -->
+        <div class="chat">
+
+            <!-- Chat: body -->
+            <div class="chat-body">
+
+                <!-- Chat: Header -->
+                <div class="chat-header border-bottom py-4 py-lg-6 px-lg-8">
+                    <div class="container-xxl">
+
+                        <div class="row align-items-center">
+
+                            <!-- Close chat(mobile) -->
+                            <div class="col-3 d-xl-none">
+                                <ul class="list-inline mb-0">
+                                    <li class="list-inline-item">
+                                        <a class="text-muted px-0" href="#" data-chat="open">
+                                            <i class="icon-md fe-chevron-left"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- Chat photo -->
+                            <div class="col-6 col-xl-6">
+                                <div class="media text-center text-xl-left">
+                                    <div class="media-body align-self-center text-truncate">
+                                        <h6 class="text-truncate mb-n1">Settings</h6>
+                                        <small class="text-muted">Update your profile details</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div><!-- .row -->
+
+                    </div>
+                </div>
+                <!-- Chat: Header -->
+
+                <!-- Chat: Content-->
+                <div class="chat-content px-lg-8">
+                    <div class="container-xxl py-6 py-lg-10">
+
+                        <!-- Accordion -->
+                        <div class="accordion modified-accordion mb-n6 mb-lg-8" id="profile-settings">
+                            <div class="card-columns">
+
+                                <!-- Card -->
+                                <div class="card mb-6 mb-lg-8">
+                                    <div class="card-header position-relative">
+                                        <a href="#" class="text-reset d-block stretched-link collapsed"
+                                            data-toggle="collapse" data-target="#profile-settings-account"
+                                            aria-controls="profile-settings-account" aria-expanded="true">
+                                            <div class="row no-gutters align-items-center">
+                                                <!-- Title -->
+                                                <div class="col">
+                                                    <h5>Account</h5>
+                                                    <p>Update your profile details.</p>
+                                                </div>
+
+                                                <!-- Icon -->
+                                                <div class="col-auto">
+                                                    <i class="text-muted icon-md fe-user"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div id="profile-settings-account" class="collapse" data-parent="#profile-settings">
+                                        <div class="card-body">
+                                            <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+                                                <div class="form-group">
+                                                    <label class="small">Avatar</label>
+                                                    <div class="position-relative text-center bg-secondary rounded p-6">
+                                                        <div class="avatar bg-primary text-white mb-5">
+                                                            <i class="icon-md fe-image"></i>
+                                                        </div>
+
+                                                        <p class="small text-muted mb-0">You can upload jpg, gif or png
+                                                            files. <br> Max file size 3mb.</p>
+                                                        <!-- <input id="upload-user-photo" class="d-none" type="file"> -->
+                                                        {{ profile_form.avatar }}
+                                                        <label class="stretched-label mb-0"
+                                                            for="upload-user-photo"></label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="small" for="profile-name">User Name</label>
+                                                    {{ profile_form.username }}
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label class="small" for="profile-name">First Name</label>
+                                                    {{ profile_form.first_name }}
+                                                </div>
+                                                
+                                                <div class="form-group">
+                                                    <label class="small" for="profile-name">Last Name</label>
+                                                    {{ profile_form.last_name }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="small" for="profile-phone">Phone</label>
+                                                    {{ profile_form.phone }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="small" for="profile-email">Email</label>
+                                                    {{ profile_form.email }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="small" for="profile-about">Country</label>
+                                                    {{ profile_form.country }}
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="small" for="profile-about">Bio</label>
+                                                    {{ profile_form.bio }}
+                                                </div>
+
+                                                <button name="profile-form" class="btn btn-lg btn-primary btn-block" type="submit">Save
+                                                    Preferences</button>
+                                            </form>
+                                        </div>
+                                    </div><!-- .collapse -->
+
+                                </div>
+                                <!-- Card -->
+
+                                                                <!-- Card -->
+                                                                <div class="card mb-6 mb-lg-8">
+                                                                    <div class="card-header position-relative">
+                                                                        <a href="#" class="text-reset d-block stretched-link collapsed"
+                                                                            data-toggle="collapse" data-target="#profile-settings-social"
+                                                                            aria-controls="profile-settings-social" aria-expanded="true">
+                                                                            <div class="row no-gutters align-items-center">
+                                                                                <!-- Title -->
+                                                                                <div class="col">
+                                                                                    <h5>Social</h5>
+                                                                                    <p>Update your profile details.</p>
+                                                                                </div>
+                                
+                                                                                <!-- Icon -->
+                                                                                <div class="col-auto">
+                                                                                    <i class="text-muted icon-md fe-share-2"></i>
+                                                                                </div>
+                                                                            </div>
+                                                                        </a>
+                                                                    </div>
+                                
+                                                                    <div id="profile-settings-social" class="collapse" data-parent="#profile-settings">
+                                                                        <div class="card-body">
+                                
+                                                                            <form method="POST">{% csrf_token %}
+                                                                                <!-- Twitter -->
+                                                                                <div class="form-group">
+                                                                                    <label class="small" for="profile-twitter">Twitter</label>
+                                                                                    <div class="input-group">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="btn btn-ico btn-secondary btn-minimal">
+                                                                                                <i class="fe-twitter"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        {{ social_form.twitter }}
+                                                                                    </div>
+                                                                                </div>
+                                
+                                                                                <!-- Facebook -->
+                                                                                <div class="form-group">
+                                                                                    <label class="small" for="profile-facebook">Facebook</label>
+                                                                                    <div class="input-group">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="btn btn-ico btn-secondary btn-minimal">
+                                                                                                <i class="fe-facebook"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        {{ social_form.facebook }}
+                                                                                    </div>
+                                                                                </div>
+                                
+                                                                                <!-- Instagram -->
+                                                                                <div class="form-group">
+                                                                                    <label class="small" for="profile-instagram">Instagram</label>
+                                                                                    <div class="input-group">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="btn btn-ico btn-secondary btn-minimal">
+                                                                                                <i class="fe-instagram"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        {{ social_form.instagram }}
+                                                                                    </div>
+                                                                                </div>
+                                
+                                                                                <!-- Github -->
+                                                                                <div class="form-group">
+                                                                                    <label class="small" for="profile-github">Github</label>
+                                                                                    <div class="input-group">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="btn btn-ico btn-secondary btn-minimal">
+                                                                                                <i class="fe-github"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        {{ social_form.github }}
+                                                                                    </div>
+                                                                                </div>
+                                
+                                                                                <!-- Slack -->
+                                                                                <div class="form-group">
+                                                                                    <label class="small" for="profile-slack">Slack</label>
+                                                                                    <div class="input-group">
+                                                                                        <div class="input-group-prepend">
+                                                                                            <div class="btn btn-ico btn-secondary btn-minimal">
+                                                                                                <i class="fe-slack"></i>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                        {{ social_form.slack }}
+                                                                                    </div>
+                                                                                </div>
+                                
+                                                                                <button name="social-form" class="btn btn-lg btn-primary btn-block" type="submit">Save
+                                                                                    Preferences</button>
+                                                                            </form>
+                                                                        </div>
+                                                                    </div><!-- .collapse -->
+                                
+                                                                </div>
+                                                                <!-- Card -->
+
+                                <!-- Card -->
+                                <div class="card mb-6 mb-lg-8">
+                                    <div class="card-header position-relative">
+                                        <a href="#" class="text-reset d-block stretched-link collapsed"
+                                            data-toggle="collapse" data-target="#profile-settings-notifications"
+                                            aria-controls="profile-settings-notifications" aria-expanded="true">
+                                            <div class="row no-gutters align-items-center">
+                                                <!-- Title -->
+                                                <div class="col">
+                                                    <h5>Messages</h5>
+                                                    <p>Update your profile details.</p>
+                                                </div>
+
+                                                <!-- Icon -->
+                                                <div class="col-auto">
+                                                    <i class="text-muted icon-md fe-message-square"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div id="profile-settings-notifications" class="collapse"
+                                        data-parent="#profile-settings">
+                                        <div class="card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item pt-0 px-0">
+                                                    <!-- Switch -->
+                                                    <a href="" class="btn btn-outline-success btn-sm float-right m5-2" data-toggle="modal"
+                                                    data-target="#export-chat">Export</a>
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0">Export all chat</h6>
+                                                    <p>Export all your messages in .txt file.</p>
+                                                </li>
+
+                                                <li class="list-group-item px-0">
+                                                    <!-- Switch -->
+                                                    <a href="" class="btn btn-outline-success btn-sm float-right m5-2" data-toggle="modal"
+                                                    data-target="#clear-chat">Delete</a>
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0">Delete messages</h6>
+                                                    <p>Messages in all chats will disappear forever.</p>
+                                                </li>
+
+                                                <li class="list-group-item px-0">
+                                                    <!-- Switch -->
+                                                    <a href="" class="btn btn-outline-success btn-sm float-right m5-2" data-toggle="modal"
+                                                    data-target="#delete-chat">Delete</a>
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0">Delete chats</h6>
+                                                    <p>ALL Chats and Messages will disappear forever.</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- .collapse -->
+
+                                </div>
+                                <!-- Card -->
+                                
+                                <!-- Card -->
+                                <div class="card mb-6 mb-lg-8">
+                                    <div class="card-header position-relative">
+                                        <a href="#" class="text-reset d-block stretched-link collapsed"
+                                            data-toggle="collapse" data-target="#profile-settings-notifications"
+                                            aria-controls="profile-settings-notifications" aria-expanded="true">
+                                            <div class="row no-gutters align-items-center">
+                                                <!-- Title -->
+                                                <div class="col">
+                                                    <h5>Notifications</h5>
+                                                    <p>Update your profile details.</p>
+                                                </div>
+
+                                                <!-- Icon -->
+                                                <div class="col-auto">
+                                                    <i class="text-muted icon-md fe-bell"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div id="profile-settings-notifications" class="collapse"
+                                        data-parent="#profile-settings">
+                                        <div class="card-body">
+                                            <ul class="list-group list-group-flush">
+                                                <li class="list-group-item pt-0 px-0">
+                                                    <div class="d-flex align-items-center justify-content-between mb-2">
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0">Sound</h6>
+
+                                                        <!-- Switch -->
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="custom-switch-1">
+                                                            <label class="custom-control-label"
+                                                                for="custom-switch-1"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p>Update your profile details.</p>
+                                                </li>
+
+                                                <li class="list-group-item px-0">
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0">Exceptions</h6>
+
+                                                        <!-- Switch -->
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="custom-switch-2">
+                                                            <label class="custom-control-label"
+                                                                for="custom-switch-2"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p>Update your profile details.</p>
+                                                </li>
+
+                                                <li class="list-group-item px-0">
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0">Message preview</h6>
+
+                                                        <!-- Switch -->
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="custom-switch-3">
+                                                            <label class="custom-control-label"
+                                                                for="custom-switch-3"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p>Update your profile details.</p>
+                                                </li>
+
+                                                <li class="list-group-item pb-0 px-0">
+                                                    <div class="d-flex justify-content-between mb-2">
+                                                        <!-- Title -->
+                                                        <h6 class="mb-0">Show notifications</h6>
+
+                                                        <!-- Switch -->
+                                                        <div class="custom-control custom-switch">
+                                                            <input type="checkbox" class="custom-control-input"
+                                                                id="custom-switch-4">
+                                                            <label class="custom-control-label"
+                                                                for="custom-switch-4"></label>
+                                                        </div>
+                                                    </div>
+                                                    <p>Update your profile details.</p>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div><!-- .collapse -->
+
+                                </div>
+                                <!-- Card -->
+
+                                <!-- Card -->
+                                <div class="card border-success mb-6 mb-lg-8">
+                                    <div class="card-header position-relative">
+                                        <a href="#" class="text-reset d-block stretched-link collapsed"
+                                            data-toggle="collapse" data-target="#profile-settings-security"
+                                            aria-expanded="true" aria-controls="profile-settings-security">
+                                            <div class="row no-gutters align-items-center">
+                                                <!-- Title -->
+                                                <div class="col">
+                                                    <h5>Security</h5>
+                                                    <p>Update your profile details.</p>
+                                                </div>
+
+                                                <!-- Icon -->
+                                                <div class="col-auto">
+                                                    <i class="text-muted icon-md fe-shield"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div id="profile-settings-security" class="collapse"
+                                        data-parent="#profile-settings">
+                                        <div class="card-body">
+                                            <form method="POST">{% csrf_token %}
+                                                <div class="form-group">
+                                                    <label class="small" for="current-password">Current password</label>
+                                                    {{ password_form.old_password }}
+                                                    <div class="text-danger">{{ password_form.old_password.errors }}</div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="small" for="new-password">New password</label>
+                                                    {{ password_form.new_password1 }}
+                                                    <div class="text-danger">{{ password_form.new_password1.errors }}</div>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label class="small" for="verify-password">Verify password</label>
+                                                    {{ password_form.new_password2 }}
+                                                    <div class="text-danger">{{ password_form.new_password2.errors }}</div>
+                                                </div>
+
+                                                <button name="password-form" class="btn btn-lg btn-primary btn-block" type="submit">
+                                                    Change Password
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div><!-- .collapse -->
+
+                                </div>
+                                <!-- Card -->
+
+                                <!-- Card -->
+                                <div class="card border-danger mb-6 mb-lg-8">
+                                    <div class="card-header position-relative">
+                                        <a href="#" class="text-reset d-block stretched-link collapsed"
+                                            data-toggle="collapse" data-target="#profile-settings-security"
+                                            aria-expanded="true" aria-controls="profile-settings-security">
+                                            <div class="row no-gutters align-items-center">
+                                                <!-- Title -->
+                                                <div class="col">
+                                                    <h5>Account</h5>
+                                                    <p>Update your profile details.</p>
+                                                </div>
+
+                                                <!-- Icon -->
+                                                <div class="col-auto">
+                                                    <i class="text-muted icon-md fe-shield"></i>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+
+                                    <div id="profile-settings-security" class="collapse"
+                                        data-parent="#profile-settings">
+                                        <div class="card-body">
+                                            <h5 class="text-danger"><i class="fas fa-heart"></i> Deleting your account will :</h5>
+                                            <ul>
+                                                <li>Delete your account from Chatify</li>
+                                                <li>Erase your message history</li>
+                                                <li>Delete you from all of your Chatify groups</li>
+                                                <li>Delete your all history</li>
+                                            </ul>
+                                            <hr>
+                                            <h5 class="text-danger"><i class="icon-md fe-qr-code"></i>Change security code instead?</h5>
+                                            <div class="form-group">
+                                                <label class="small" for="code">Security code</label>
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div onclick="showFunction();" class="btn btn-ico btn-secondary btn-minimal">
+                                                            <i class="fe-eye"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="code" type="password" class="form-control" value="{{ user.slug }}" disabled style="cursor: not-allowed;">
+                                                </div>
+                                            </div>
+                                            <a href="{% url 'chat:change-security-code' user.slug %}" class="btn btn-success text-light mt-3">Reset security code</a>
+                                            
+                                            <div class="mt-5">To delete your account, confirm your request and enter your password.</div>
+                                            <a data-toggle="modal" data-target="#delete-account" class="btn btn-danger text-light mt-3">Delete account</a>
+                                        </div>
+                                    </div><!-- .collapse -->
+
+                                </div>
+                                <!-- Card -->
+
+                            </div>
+                        </div>
+                        <!-- Accordion -->
+
+                    </div>
+                </div>
+                <!-- Chat: Content -->
+
+            </div>
+            <!-- Chat: body -->
+
+        </div>
+        <!-- Chat -->
+
+    </div>
+    <!-- Main Content -->
+
+</div>
+<!-- Layout -->
+
+{% include 'settings-modals.html' %}
+
+<script>
+    function showFunction() {
+        var x = document.getElementById('code');
+        if (x.type === "password") {
+            x.type = 'text'
+        } else {
+            x.type = 'password'
+        }
+    }
+</script>
+
+{% endblock content %}
